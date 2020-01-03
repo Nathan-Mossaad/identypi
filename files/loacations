@@ -1,0 +1,8 @@
+main /usr/share/identypi
+
+identypi.conf /etc/identypi.conf
+identypi.service /etc/systemd/system/identypi.service
+rc522 /usr/share/identypi/rc522
+identypi.py /usr/share/identypi/identypi.py
+identypi /usr/bin/identypi
+users /usr/share/identypi/users

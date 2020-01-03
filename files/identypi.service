@@ -1,0 +1,14 @@
+[Unit]
+Description=identypi service
+After=
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/usr/share/identypi/identypi.py
+
+[Install]
+WantedBy=multi-user.target
