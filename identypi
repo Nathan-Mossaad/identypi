@@ -31,7 +31,7 @@ for opt, args in opts:
     elif opt in ("-i", "--import"): selec = "i"
     elif opt in ("-E", "--enable"): selec = "E"
     elif opt in ("-D", "--disable"): selec = "D"
-    elif opt in ("-r", "--replace"): selec = "r"
+    elif opt in ("-r", "--remove"): selec = "r"
     else: selec = ""
 
 
