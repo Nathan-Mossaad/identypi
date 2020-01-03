@@ -15,7 +15,7 @@ write = False
 # get command
 selec = ""
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "h o L c I l e i E D", ["help", "conf", "log", "create", "createid", "list", "export", "import", "enable", "disable"])
+    opts, args = getopt.getopt(sys.argv[1:], "h o L c I l e i E D r", ["help", "conf", "log", "create", "createid", "list", "export", "import", "enable", "disable", "remove"])
 except getopt.GetoptError:
     print("Command unknown, type -h for help")
     sys.exit()
@@ -31,6 +31,7 @@ for opt, args in opts:
     elif opt in ("-i", "--import"): selec = "i"
     elif opt in ("-E", "--enable"): selec = "E"
     elif opt in ("-D", "--disable"): selec = "D"
+    elif opt in ("-r", "--replace"): selec = "r"
     else: selec = ""
 
 
@@ -165,3 +166,19 @@ elif selec == "D":
     os.system("systemctl stop identypi")
     os.system("systemctl disable identypi")
     print("disabled")
+
+#remove
+elif selec == "r":
+    name = input("Enter a name without spaces: ")
+    users = open("/usr/share/identypi/users", "r")
+    usersbak = open("/usr/share/identypi/users.bak", "a")
+    while (' ' in name) == True: name = input("Enter a name WITHOUT spaces: ")
+    for line in users:
+        if str(line.split()[1]) == str(name):
+            continue
+        else:
+            usersbak.write(line)
+    os.system("rm /usr/share/identypi/users")
+    os.system("mv /usr/share/identypi/users.bak /usr/share/identypi/users")
+    print("done")
+    os.system("systemctl restart identypi.service")
