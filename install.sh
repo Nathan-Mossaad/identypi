@@ -7,7 +7,7 @@ fi
 raspi-config
 apt update --yes
 apt upgrade --yes
-apt install python-rpi.gpio install python-rpi.gpio python3-rpi.gpio --yes
+apt install python-rpi.gpio python-rpi.gpio python3-rpi.gpio --yes
 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.50.tar.gz
 tar -zxf bcm2835-1.50.tar.gz
 rm bcm2835-1.50.tar.gz
