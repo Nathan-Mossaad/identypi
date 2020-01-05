@@ -8,6 +8,8 @@ Still in Beta: Relay functionallity untested
 
 turn on spi in the ```raspi-config``` under interfacing options
 
+Checkout https://github.com/F1xw/Identypi-GUI for a web interface
+
 ## Usage
 
 ```sudo identypi```
