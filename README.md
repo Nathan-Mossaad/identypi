@@ -6,8 +6,6 @@
 
 turn on spi in the ```raspi-config``` under interfacing options
 
-Check out https://github.com/F1xw/Identypi-GUI for a web interface
-
 ## Usage
 
 ```sudo identypi```
