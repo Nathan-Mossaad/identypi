@@ -19,7 +19,7 @@ for line in conf:
 
 while True:
     print("reading...")
-    id = os.popen("/usr/share/identypi/rc522").read()
+    id = os.popen("/usr/bin/timeout 5m /usr/share/identypi/rc522").read()
     id = id[1:(len(id)-1)]
     if len(id) == 8:
         id = hashlib.new("sha256", str(id).encode()).hexdigest()
