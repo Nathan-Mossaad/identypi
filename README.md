@@ -1,14 +1,20 @@
-# identypi for raspian on a raspberry pi 3
+! This new version is incompatible with the old one, all users will have to be reregisterd
+# identypi for a raspberry pi (3)
+This project assumes that you run Raspberry Pi OS Lite: https://www.raspberrypi.com/software/operating-systems/
 
-## Requires wget:
+Furthermore the RFID-RC522 module should be hooked up as shown here: https://pimylifeup.com/wp-content/uploads/2017/10/RFID-Fritz-v2.png
+
+(Hookup the Relay as you configured it)
+
+## Requirements:
+
 ```sudo apt install wget --yes```
 
 ## Installation (requires internet access):
 
-```wget https://raw.githubusercontent.com/Nathan-Mossaad/identypi/master/install.sh && sudo chmod +x install.sh && sudo ./install.sh && sudo reboot```
-
-turn on spi in the ```raspi-config``` under interfacing options
+```wget -q -O - https://raw.githubusercontent.com/Nathan-Mossaad/identypi/master/install.sh | sudo bash```
 
 ## Usage
 
 ```sudo identypi```
+

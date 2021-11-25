@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 import os, hashlib, time, datetime
 import RPi.GPIO as GPIO
 
@@ -19,9 +19,8 @@ for line in conf:
 
 while True:
     print("reading...")
-    id = os.popen("/usr/bin/timeout 5m /usr/share/identypi/rc522").read()
-    id = id[1:(len(id)-1)]
-    if len(id) == 8:
+    id = os.popen("bash -c 'timeout 5m /usr/share/identypi/get-id.py |& tail -1'").read()
+    if len(id) == 13:
         id = hashlib.new("sha256", str(id).encode()).hexdigest()
         users = open("/usr/share/identypi/users", "r")
         for line in users:
@@ -66,4 +65,4 @@ while True:
         users.close()
         time.sleep(3)
     else:
-        print("Something went wrong while getting the card ID")
+        print("No card ID")
