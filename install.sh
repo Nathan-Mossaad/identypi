@@ -4,10 +4,15 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-raspi-config
+# Enable spi
+echo "dtparam=spi=on" >> /boot/config.txt
+
+# System Updates & Install dependencies
 apt update --yes
 apt upgrade --yes
-apt install python-rpi.gpio python-rpi.gpio python3-rpi.gpio --yes
+apt install python3-rpi.gpio git --yes
+
+# Install bcm drivers
 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.50.tar.gz
 tar -zxf bcm2835-1.50.tar.gz
 rm bcm2835-1.50.tar.gz
@@ -18,6 +23,7 @@ make install
 cd  ..
 rm -r bcm2835-1.50/
 
+# Install rc522 driver
 wget https://github.com/Nathan-Mossaad/rc522-identypi/raw/master/rc522.tar.gz
 tar -zxvf rc522.tar.gz
 rm rc522.tar.gz
@@ -30,17 +36,17 @@ mkdir /usr/share/identypi/
 mv rc522/rc522 /usr/share/identypi/rc522
 rm -r rc522
 
-wget https://github.com/Nathan-Mossaad/identypi/raw/master/identypi.tar.gz
-tar -xf identypi.tar.gz
-rm identypi.tar.gz
-mv identypi/users /usr/share/identypi/users
-mv identypi/identypi.py /usr/share/identypi/identypi.py
-mv identypi/identypi /usr/bin/identypi
-mv identypi/identypi.conf /etc/identypi.conf
-mv identypi/identypi.service /etc/systemd/system/identypi.service
-rmdir identypi
+# Install identypi
+git clone https://github.com/Nathan-Mossaad/identypi.git
+touch /usr/share/identypi/users
+mv identypi/files/identypi.py /usr/share/identypi/identypi.py
+chmod +x /usr/share/identypi/identypi.py
+mv identypi/files/identypi /usr/bin/identypi
+chmod +x /usr/bin/identypi
+mv identypi/files/identypi.conf /etc/identypi.conf
+mv identypi/files/identypi.service /etc/systemd/system/identypi.service
+rm -rf identypi
 
 systemctl enable identypi.service
 echo "please reboot to start identypi"
 echo "don't forget to add a user ATER rebooting: identypi -h"
-rm install.sh
